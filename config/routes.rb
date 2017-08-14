@@ -44,6 +44,8 @@ Rails.application.routes.draw do
   # READ
   get "/photos", :controller => "photos", :action => "index"
   get "/photos/:id", :controller => "photos", :action => "show"
+  
+  get "/my_likes", :controller => "photos", :action => "favorites"
 
   # UPDATE
   get "/photos/:id/edit", :controller => "photos", :action => "edit"
@@ -52,6 +54,8 @@ Rails.application.routes.draw do
   # DELETE
   get "/delete_photo/:id", :controller => "photos", :action => "destroy"
   #------------------------------
+  
+ 
 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

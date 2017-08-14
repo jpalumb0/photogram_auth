@@ -9,7 +9,7 @@
       <dd><%= @photo.caption %></dd>
 
       <dt>Image</dt>
-      <dd><%= @photo.image %></dd>
+      <dd><img src= "<%= @photo.image %>" class = "img-responsive"></dd>
 
       <dt>User</dt>
       <dd><% @photo.id %></dd>
@@ -17,15 +17,21 @@
     </dl>
 
     <div class="btn-group btn-group-justified">
-      <a href="/photos" class="btn btn-primary">
-        Back
-      </a>
-      <a href="/photos/<%= @photo.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_photo/<%= @photo.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+      <% if @photo.user_id == current_user.id %>
+        <a href="/photos" class="btn btn-primary">
+          Back
+        </a>
+        <a href="/photos/<%= @photo.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_photo/<%= @photo.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% else %>
+        <a href="/photos" class="btn btn-primary">
+          Back
+        </a>
+      <% end %>
     </div>
   </div>
 </div>
