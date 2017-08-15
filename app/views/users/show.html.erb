@@ -7,6 +7,10 @@
             <td>
                 <img src="<%= photo.image %>">
             </td>
+            <td>
+                <a href="/delete_photo/<%= photo.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+            </td>
+            
         </tr>
     <% end %>
 </table>
