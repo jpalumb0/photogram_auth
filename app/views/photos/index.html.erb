@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <a href="/photos/new" class="btn btn-default btn-block"><i class="fa fa-plus"></i></a>
+  </div>
+</div>
+
+
+
+<% @photos.each do |photo| %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title"><%= User.find(photo.user_id).username %> <small><%= time_ago_in_words(photo.created_at) %> ago</small></h2>
+      </div>
+      <div class="panel-body">
+        <a href="/photos/<%= photo.id %>">
+          <img src="<%= photo.image %>" class="img-responsive">
+        </a>
+        <p></p>
+        <ul class="media-list">
+          <li class="media">
+            <div class="media-body">
+              <h6 class="media-heading">
+                <a href="/user/<%= photo.user_id %>"><%= User.find(photo.user_id).username %> </a><small><%= time_ago_in_words(photo.created_at) %> ago</small>
+              </h6>
+              <%= photo.caption %>
+              
+            </div>
+          </li>
+          <% photo.comments.each do |comment| %>
+            <li class="media">
+              <div class="media-body">
+                <h6 class="media-heading">
+                  <a href="/user/<%= photo.user_id %>"><%= User.find(comment.user_id).username %> </a><small><%= time_ago_in_words(comment.created_at) %> ago</small>
+                </h6>
+                <%= comment.body %>
+              </div>
+            </li>   
+          <% end %>
+          <li class="media">
+            <div class="media-body">
+              <form action="/create_comment" method="post">
+                <input type="hidden" name="photo_id" value="<%= photo.id %>">
+                <input type="hidden" name="user_id" value="<%= current_user.id %>">
+                <div class="form_group">
+                  <label for="body" class="sr-only">Body</label>
+                    <div class="input-group">
+                      <input type="text" id="body" name="body" class="form-control" placeholder="Add a comment..." required>
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                          <i class="fa fa-commenting-o"></i>
+                        </button>
+                      </span>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+                <% if photo.user_id == current_user.id %>
+                <td>
+                  <a href="/photos/<%= photo.id %>" class="btn btn-primary">Show</a>
+                  <a href="/photos/<%= photo.id %>/edit" class="btn btn-warning">Edit</a>
+                  <a href="/delete_photo/<%= photo.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+                </td>
+                <% else %>
+                <td>
+                  <a href="/photos/<%= photo.id %>" class="btn btn-primary">Show</a>
+                </td>
+                <% end %>
+              </tr>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
