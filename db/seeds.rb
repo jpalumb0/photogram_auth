@@ -20,22 +20,23 @@ end
 =end
 20.times do
     users = User.all
-    participants = users.sample(2).id
-    sender = User.find(participants.first).username
-    receiver = User.find(participants.last).username
-    Conversation.create!(
-        title: sender + ", " + receiver    
+    participants = users.sample(2)
+    sender = participants.first.id
+    receiver = participants.last.id
+    sender_name = User.find(sender).username
+    receiver_name = User.find(receiver).username
+    c = Conversation.create!(
+        title: sender_name + ", " + receiver_name    
     )
-    
+    5.times do
+        Message.create!(
+            user_id: participants.sample.id,
+            body: Faker::Simpsons.quote,
+            amount: 0,
+            conversation_id: c.id
+        )
+
+    end
 end
 
-100.times do
-    users = User.all
-    Message.create!(
-        user_id: users.sample.id,
-        body: Faker::Simpsons.quote,
-        amount: 0,
-        conversation_id: Conversation.where("title LIKE ?", User.find(user_id).username).sample.id
-    )
 
-end
