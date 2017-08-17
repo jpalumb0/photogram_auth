@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+  # Routes for the Connection resource:
+  # CREATE
+  get "/connections/new", :controller => "connections", :action => "new"
+  post "/create_connection", :controller => "connections", :action => "create"
+
+  # READ
+  get "/connections", :controller => "connections", :action => "index"
+  get "/connections/:id", :controller => "connections", :action => "show"
+
+  # UPDATE
+  get "/connections/:id/edit", :controller => "connections", :action => "edit"
+  post "/update_connection/:id", :controller => "connections", :action => "update"
+
+  # DELETE
+  get "/delete_connection/:id", :controller => "connections", :action => "destroy"
+  #------------------------------
+
   root "conversations#index"
   
   # Routes for the Conversation resource:

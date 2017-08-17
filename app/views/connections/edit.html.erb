@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @connection.errors.any? %>
+  <% @connection.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Connection #<%= @connection.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_connection/<%= @connection.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for owner_id -->
+      <div class="form-group">
+        <label for="owner_id" class="control-label">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id" name="owner_id" placeholder="Owner" class="form-control" value="<%= @connection.owner_id %>">
+      </div>
+
+      <!-- Label and input for added_id -->
+      <div class="form-group">
+        <label for="added_id" class="control-label">
+          Added
+        </label>
+
+        <input type="text" id="added_id" name="added_id" placeholder="Added" class="form-control" value="<%= @connection.added_id %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Connection
+      </button>
+      or
+      <a href="/connections/<%= @connection.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>PhotogramAuth</title>
+  <title>Chat Wallet</title>
 
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -35,7 +35,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand">PhotogramAuth</a>
+        <a href="/" class="navbar-brand">Chat Wallet</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -44,12 +44,17 @@
           <li><a href="/conversations">Conversations</a></li>
           <li><a href="/messages">Messages</a></li>
           <li><a href="/wallets">Wallets</a></li>
-          <li><a href="/rails/git">Git</a></li>
+          <li><a href="/rails/git" target="_blank">Git</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/users/edit">Dummy Edit Profile Link</a></li>
-          <li><a href="/users/sign_out" data-method="delete" rel="nofollow">Dummy Sign Out Link</a></li>
+          <% if current_user == nil %>
+            <li><a href="/users/sign_in">Sign In</a></li>
+            <li><a href="/users/sign_up">Sign Up</a></li>
+          <% else %>
+            <li><a href="/users/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <%= current_user.username %></a></li>
+            <li><a href="/users/sign_out" data-method="delete" rel="nofollow"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a></li>
+          <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>
