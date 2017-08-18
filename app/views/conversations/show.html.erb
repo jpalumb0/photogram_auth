@@ -1,25 +1,69 @@
-<div class="page-header">
-  <h3>Conversation #<%= @conversation.id %></h3>
+<div class="row">
 </div>
 
+
 <div class="row">
-  <div class="col-md-12 mb-2">
-    <dl class="dl-horizontal">
-      <dt>Title</dt>
-      <dd><%= @conversation.title %></dd>
-
-    </dl>
-
-    <div class="btn-group btn-group-justified">
-      <a href="/conversations" class="btn btn-primary">
-        Back
-      </a>
-      <a href="/conversations/<%= @conversation.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_conversation/<%= @conversation.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title"><%= @conversation.title %> <small><%= time_ago_in_words(@conversation.created_at) %> ago</small></h2>
+      </div>
+      <div class="panel-body">
+        
+                
+        <ul class="media-list">
+          <% @conversation.messages.each do |message| %>
+            <% if message.user.id == current_user.id %>
+              <li class="media">
+                <div class="media-body text-right">
+                  <h6 class="media-heading">
+                    <a href="/user/<%= message.user_id %>"><%= message.user.username %> </a><small><%= time_ago_in_words(message.created_at) %> ago</small>
+                  </h6>
+                  <%= message.body %>
+                </div>
+              </li>   
+            <% else %>
+              <li class="media">
+                <div class="media-body">
+                  <h6 class="media-heading">
+                    <a href="/user/<%= message.user_id %>"><%= message.user.username %> </a><small><%= time_ago_in_words(message.created_at) %> ago</small>
+                  </h6>
+                  <%= message.body %>
+                </div>
+              </li>   
+            <% end %>
+          <% end %>
+          <li class="media">
+            <div class="media-body">
+              <form action="/create_message" method="post">
+                <input type="hidden" name="conversation_id" value="<%= @conversation.id %>">
+                <input type="hidden" name="user_id" value="<%= current_user.id %>">
+                <div class="form_group">
+                  <label for="body" class="sr-only">Body</label>
+                    <div class="input-group">
+                      <input type="text" id="body" name="body" class="form-control" placeholder="Add a message..." required>
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                          <i class="fa fa-commenting-o"></i>
+                        </button>
+                      </span>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+                <% if @conversation.user_ids.include? current_user.id %>
+                <td>
+                  <a href="/delete_conversation/<%= @conversation.id %>" class="btn btn-danger" rel="nofollow">Delete Conversation?</a>
+                </td>
+                <% else %>
+                <td>
+                </td>
+                <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+
