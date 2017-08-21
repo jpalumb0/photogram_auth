@@ -12,17 +12,17 @@
         <th>Title</th>
         <th>Actions</th>
       </tr>
-
-      <% @conversations.each do |conversation| %>
-      <tr>
-        <td><%= conversation.title %></td>
-        <td>
-          <a href="/conversations/<%= conversation.id %>" class="btn btn-primary">Show</a>
-          <a href="/conversations/<%= conversation.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_conversation/<%= conversation.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-        </td>
-      </tr>
-      <% end %>
+      
+        <% @conversations.each do |conversation| %>
+        <tr>
+          <td><%= conversation.title %></td>
+          <td>
+            <a href="/conversations/<%= conversation.id %>" class="btn btn-primary">Show</a>
+            <a href="/conversations/<%= conversation.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_conversation/<%= conversation.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          </td>
+        </tr>
+        <% end %>
     </table>
   </div>
 </div>

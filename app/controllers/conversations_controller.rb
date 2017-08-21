@@ -1,6 +1,8 @@
 class ConversationsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => [:index, :show]
+  
   def index
-    @conversations = Conversation.all
+    @conversations = current_user.conversations
 
     render("conversations/index.html.erb")
   end

@@ -1,6 +1,6 @@
 class ConnectionsController < ApplicationController
   def index
-    @connections = Connection.all
+    @connections = Connection.where(:owner_id => current_user.id)
 
     render("connections/index.html.erb")
   end

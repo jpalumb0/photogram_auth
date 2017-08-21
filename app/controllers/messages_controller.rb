@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  skip_before_action :verify_authenticity_token, :only => [:index, :show, :create]
+  
   def index
     @messages = Message.all
 
@@ -28,7 +30,7 @@ class MessagesController < ApplicationController
     save_status = @message.save
 
     if save_status == true
-      redirect_to("/messages/#{@message.id}", :notice => "Message created successfully.")
+      redirect_to("/conversations/#{@message.conversation_id}", :notice => "Message created successfully.")
     else
       render("messages/new.html.erb")
     end

@@ -9,15 +9,15 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
-        <th>Owner</th>
-        <th>Added</th>
+        <th>Name</th>
+      
         <th>Actions</th>
       </tr>
 
       <% @connections.each do |connection| %>
       <tr>
-        <td><%= connection.owner_id %></td>
-        <td><%= connection.added_id %></td>
+        <td><%= User.find(connection.added_id).username %></td>
+        
         <td>
           <a href="/connections/<%= connection.id %>" class="btn btn-primary">Show</a>
           <a href="/connections/<%= connection.id %>/edit" class="btn btn-warning">Edit</a>
@@ -27,4 +27,5 @@
       <% end %>
     </table>
   </div>
+
 </div>
