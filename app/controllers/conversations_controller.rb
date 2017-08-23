@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  skip_before_action :verify_authenticity_token, :only => [:index, :show]
+  skip_before_action :verify_authenticity_token, :only => [:index, :show, :create]
   
   def index
     @conversations = current_user.conversations.uniq

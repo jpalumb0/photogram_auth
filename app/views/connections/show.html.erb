@@ -1,15 +1,16 @@
 <div class="page-header">
-  <h3>Connection #<%= @connection.id %></h3>
+  <h3><%= User.find(@connection.added_id).username %></h3>
 </div>
 
 <div class="row">
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
-      <dt>Owner</dt>
-      <dd><%= @connection.owner_id %></dd>
 
-      <dt>Added</dt>
-      <dd><%= @connection.added_id %></dd>
+      <dt>Name</dt>
+      <dd><%= User.find(@connection.added_id).username %></dd>
+      
+      <dt>Email</dt>
+      <dd><%= User.find(@connection.added_id).email %></dd>
 
     </dl>
 

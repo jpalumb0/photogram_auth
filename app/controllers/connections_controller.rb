@@ -23,8 +23,9 @@ class ConnectionsController < ApplicationController
 
   def show
     @connection = Connection.find(params[:id])
+    
 
-    render("conversations/show.html.erb")
+    render("connections/show.html.erb")
   end
 
   def new

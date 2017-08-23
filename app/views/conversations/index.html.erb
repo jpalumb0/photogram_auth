@@ -10,14 +10,18 @@
     <table class="table table-striped table-hover">
       <tr>
         <th>Title</th>
+        <th>Last Message</th>
         <th>Actions</th>
       </tr>
       
         <% @conversations.each do |conversation| %>
         <tr>
           <td><%= conversation.title %></td>
+          <% a=Conversation.find(conversation.id).messages.last %>
+          <td><strong> <%= User.find(a.user_id).username %></strong>: <%= a.body %>  <small><i><%= time_ago_in_words(a.created_at) %></i></small></td>
           <td>
-           
+             <a href="/conversations/<%= conversation.id%>" class="btn btn-primary">Show</a>
+             <a href="/delete_conversation/<%= conversation.id %>" class="btn btn-danger" rel="nofollow">Delete Conversation?</a>
           </td>
         </tr>
         <% end %>

@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Edit Wallet #<%= @wallet.id %></h3>
+  <h3>Edit Wallet <small>public key: <%= @wallet.public_key %></small></h3>
 </div>
 
 <div class="row">
@@ -20,11 +20,11 @@
 
       <!-- Label and input for user_id -->
       <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
+        <label for="user_id" class="sr-only">
+       
         </label>
 
-        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @wallet.user_id %>">
+        <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @wallet.user_id %>">
       </div>
 
       <!-- Label and input for balance -->
@@ -37,7 +37,7 @@
       </div>
 
       <button class="btn btn-warning">
-        Update Wallet
+        Update Wallet Balance
       </button>
       or
       <a href="/wallets/<%= @wallet.id %>">Cancel</a>

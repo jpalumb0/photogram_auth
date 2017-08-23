@@ -59,6 +59,7 @@
             <li><a href="/users/sign_up">Sign Up</a></li>
           <% else %>
             <li><a href="/users/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <%= current_user.username %></a></li>
+            <li><a href="/wallets/<%= current_user.wallet.id %>"><i class="fa fa-btc" aria-hidden="true"></i>  <%= current_user.wallet.balance.round(2) %></a></li>
             <li><a href="/users/sign_out" data-method="delete" rel="nofollow"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a></li>
           <% end %>
         </ul>

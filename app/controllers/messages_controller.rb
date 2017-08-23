@@ -38,7 +38,7 @@ class MessagesController < ApplicationController
         receive_wallet.balance += @message.amount
         send_wallet.save
         receive_wallet.save
-        redirect_to("/conversations/#{@message.conversation_id}", :notice => "You sent $#{@message.amount} to #{User.find(params[:pay_to]).username}!")
+        redirect_to("/conversations/#{@message.conversation_id}", :notice => "You sent $#{@message.amount.round(2)} to #{User.find(params[:pay_to]).username}!")
 
       else
         redirect_to("/conversations/#{@message.conversation_id}")
