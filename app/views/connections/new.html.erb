@@ -25,11 +25,11 @@
 
       <!-- Label and input for added_id -->
       <div class="form-group">
-        <label for="added" class="control-label">
+        <label for="added_id" class="control-label">
           Contact
         </label>
 
-        <%= select_tag("added", options_from_collection_for_select(User.all, :id, :username), :class => "form-control") %>
+        <%= select_tag("added_id", options_from_collection_for_select(User.all.reject {|user| user.id == current_user.id }, :id, :username), :class => "form-control") %>
       </div>
 
       <button class="btn btn-success">

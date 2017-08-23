@@ -21,15 +21,16 @@ class ConversationsController < ApplicationController
 
   def create
     @conversation = Conversation.new
-
-    member_ids = params[:member_ids]
-    member_ids << current_user.id
+=begin
+    member_ids = [current_user.id, params[:member_ids]]
     @member_names = []
     member_ids.each do |id|
-      @member_names << User.find(id).username 
+      user = User.find(id)
+      @member_names << user.username
     end
     @conversation.title = @member_names.to_sentence
-
+=end
+    @conversation.title = "#{current_user.username} & #{@conversation.id}"
     save_status = @conversation.save
 
     if save_status == true
