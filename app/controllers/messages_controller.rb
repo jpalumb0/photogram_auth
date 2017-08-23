@@ -22,15 +22,27 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new
 
-    @message.amount = params[:amount]
+    @message.amount = params[:amount].to_f
     @message.body = params[:body]
-    @message.conversation_id = params[:conversation_id]
     @message.user_id = params[:user_id]
-
+    @message.conversation_id = params[:conversation_id]
+    
+    send_wallet = Wallet.find_by(:user_id => @message.user_id)
+    receive_wallet = Wallet.find_by(params[:pay_to])
+    
     save_status = @message.save
 
     if save_status == true
-      redirect_to("/conversations/#{@message.conversation_id}", :notice => "Message created successfully.")
+      if @message.amount.present?
+        send_wallet.balance -= @message.amount
+        receive_wallet.balance += @message.amount
+        send_wallet.save
+        receive_wallet.save
+        redirect_to("/conversations/#{@message.conversation_id}", :notice => "You sent $#{@message.amount} to #{User.find(params[:pay_to]).username}!")
+
+      else
+        redirect_to("/conversations/#{@message.conversation_id}")
+      end
     else
       render("messages/new.html.erb")
     end

@@ -18,6 +18,25 @@
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
+      
+
+      <div class="form-group">
+        <label for="member_ids" class="control-label">
+          To
+        </label>
+
+        <%= select_tag("member_ids", options_from_collection_for_select(User.all, :id, :username), :multiple => true, :class => "form-control") %>
+      </div>
+      
+      <!-- Label and input for body -->
+      <div class="form-group">
+        <label for="body" class="control-label">
+          Body
+        </label>
+
+        <textarea id="body" name="body" placeholder="Body" class="form-control" rows="3"><%= @message.body %></textarea>
+      </div>
+      
       <!-- Label and input for amount -->
       <div class="form-group">
         <label for="amount" class="control-label">
@@ -27,31 +46,13 @@
         <input type="text" id="amount" name="amount" placeholder="Amount" class="form-control" value="<%= @message.amount %>">
       </div>
 
-      <!-- Label and input for body -->
-      <div class="form-group">
-        <label for="body" class="control-label">
-          Body
-        </label>
-
-        <textarea id="body" name="body" placeholder="Body" class="form-control" rows="3"><%= @message.body %></textarea>
-      </div>
-
       <!-- Label and input for conversation_id -->
-      <div class="form-group">
-        <label for="conversation_id" class="control-label">
-          Conversation
-        </label>
-
-        <input type="text" id="conversation_id" name="conversation_id" placeholder="Conversation" class="form-control" value="<%= @message.conversation_id %>">
-      </div>
+      
 
       <!-- Label and input for user_id -->
       <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
 
-        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @message.user_id %>">
+        <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
       </div>
 
       <button class="btn btn-success">

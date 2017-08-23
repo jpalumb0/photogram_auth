@@ -20,12 +20,13 @@
 
       <!-- Label and input for title -->
       <div class="form-group">
-        <label for="title" class="control-label">
-          Title
+        <label for="member_ids" class="control-label">
+          To
         </label>
 
-        <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="<%= @conversation.title %>">
+        <%= select_tag("member_ids", options_from_collection_for_select(User.all, :id, :username), :multiple => true, :class => "form-control") %>
       </div>
+      
 
       <button class="btn btn-success">
         Create Conversation

@@ -2,7 +2,7 @@ class ConversationsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:index, :show]
   
   def index
-    @conversations = current_user.conversations
+    @conversations = current_user.conversations.uniq
 
     render("conversations/index.html.erb")
   end
@@ -22,7 +22,13 @@ class ConversationsController < ApplicationController
   def create
     @conversation = Conversation.new
 
-    @conversation.title = params[:title]
+    member_ids = params[:member_ids]
+    member_ids << current_user.id
+    @member_names = []
+    member_ids.each do |id|
+      @member_names << User.find(id).username 
+    end
+    @conversation.title = @member_names.to_sentence
 
     save_status = @conversation.save
 
