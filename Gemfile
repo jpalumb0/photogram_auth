@@ -71,3 +71,5 @@ end
 gem "starter_generators", :git => "https://github.com/raghubetina/starter_generators"
 gem 'devise'
 gem 'font-awesome-sass', '~> 4.7.0'
+
+gem 'ransack'
