@@ -1,0 +1,45 @@
+<div class="page-header">
+  <h1>
+    Connections
+    <a href="/connections/new" class="btn btn-lg btn-success">New Connection</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Name</th>
+      
+        <th>Last</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @connections.each do |connection| %>
+      <tr>
+        <td><%= User.find(connection.added_id).username %></td>
+        <% @members = [current_user.id, connection.added.id] %>
+        <% conversation_id = [] %>
+        <% Conversation.all.each do |c| %>
+          <% d = c.members.distinct.map{|i| i[:id]} %>
+          
+          <% if d.sort == @members.sort %>
+            <% conversation_id.push(c.id) %>
+            <% break %>
+          <% end %>
+        <% end %>
+        <% if conversation_id[0] == nil %>
+          <td></td>
+          <td><a href="/conversations/new" class="btn btn-lg btn-success">New Message (even though it's going to route to a new Conversation)</a></td>
+        <% else %>
+          <% a=Conversation.find(conversation_id[0]).messages.last %>
+          <td><h4> <%= User.find(a.user_id).username %></h4><%= a.body %> <small><%= time_ago_in_words(a.created_at) %></small></td>
+          <td><a href="/conversations/<%= conversation_id[0]%>" class="btn btn-primary">Show</a></td>
+        <% end %>
+        
+      </tr>
+      <% end %>
+    </table>
+  </div>
+
+</div>
