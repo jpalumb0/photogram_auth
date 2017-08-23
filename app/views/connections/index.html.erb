@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>
+    Connections
+    <a href="/connections/new" class="btn btn-lg btn-success">New Connection</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Name</th>
+      
+        <th>Actions</th>
+      </tr>
+
+      <% @connections.each do |connection| %>
+      <tr>
+        <td><%= User.find(connection.added_id).username %></td>
+          <% @members = [current_user.id, connection.added.id]  %>
+          <% conversation_id = () %>
+          <% Conversation.all.each do |c| %>
+            <% d = c.members.uniq.map{|i| i[:id]} %>
+            <% if @members.sort == d.sort %>
+              <% break %>
+            <% end %>
+            <% conversation_id = c.id %>
+            <% return conversation_id %>
+          <% end %>
+         
+          
+        <td>
+          <% if conversation_id.to_s.exists? %>
+            <a href="/conversations/<%= conversation_id %>" class="btn btn-primary">Show</a>
+            <a href="/delete_connection/<%= connection.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% else %>
+            <a href="/conversations/new" class="btn btn-primary">Show</a>
+            <a href="/delete_connection/<%= connection.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>  
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @wallet.errors.any? %>
+  <% @wallet.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Wallet</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_wallet" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @wallet.user_id %>">
+      </div>
+
+      <!-- Label and input for balance -->
+      <div class="form-group">
+        <label for="balance" class="control-label">
+          Balance
+        </label>
+
+        <input type="text" id="balance" name="balance" placeholder="Balance" class="form-control" value="<%= @wallet.balance %>">
+      </div>
+
+      <button class="btn btn-success">
+        Create Wallet
+      </button>
+      or
+      <a href="/wallets">Cancel</a>
+    </form>
+  </div>
+</div>
