@@ -8,7 +8,7 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
-        
+        <th></th>
         <th>User</th>
         <th>Email</th>
 
@@ -17,11 +17,11 @@
       <% @users.each do |user| %>
       <tr>
         <td>
-        <h2><a href="/users/<%= user.id %>"><%= user.username %></a></h2>
-            <a href="/users/<%= user.id %>"><img src=<%= user.avatar_url %> class="img-circle"></a>
-          
-        
+          <a href="/users/<%= user.id %>"><img src=<%= user.avatar_url %> class="img-responsive"></a>
         </td>
+        <td>
+          <h2><a href="/users/<%= user.id %>"><%= user.username %></a></h2>
+        </td>    
         <td>
           <%= user.email %>
         </td>

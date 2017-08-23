@@ -24,7 +24,7 @@
           To
         </label>
 
-        <%= select_tag("member_ids", options_from_collection_for_select(User.all, :id, :username), :multiple => true, :class => "form-control") %>
+        <%= select_tag("member_ids", options_from_collection_for_select(User.all.reject {|user| user.id == current_user.id }, :id, :username), :multiple => true, :class => "form-control") %>
       </div>
       
 

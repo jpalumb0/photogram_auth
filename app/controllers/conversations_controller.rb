@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => [:index, :show]
+  skip_before_action :verify_authenticity_token, :only => [:index, :show]
   
   def index
     @conversations = current_user.conversations.uniq
@@ -21,16 +21,40 @@ class ConversationsController < ApplicationController
 
   def create
     @conversation = Conversation.new
+    
+      
+    @member_ids = params[:member_ids]
+    @member_ids << current_user.id
+    
+    
+    @conversation.save
+  
+    
+    @member_ids.each do |id|
+      invite_message = Message.new
+      invite_message.body = "joined"
+      invite_message.user_id = id
+      invite_message.conversation_id = @conversation.id
+      invite_message.save
+    end  
+    
+    @conversation.title = @conversation.members.pluck(:username).to_sentence
+    
+    save_status = @conversation.save
+    
+    if save_status == true
+      redirect_to("/conversations/#{@conversation.id}", :notice => "Conversation created successfully.")
+    else
+      render("conversations/new.html.erb")
+    end
+    
 =begin
-    member_ids = [current_user.id, params[:member_ids]]
     @member_names = []
     member_ids.each do |id|
-      user = User.find(id)
-      @member_names << user.username
+      @member_names.push(User.find(id)[0][:username])
     end
     @conversation.title = @member_names.to_sentence
-=end
-    @conversation.title = "#{current_user.username} & #{@conversation.id}"
+
     save_status = @conversation.save
 
     if save_status == true
@@ -38,7 +62,9 @@ class ConversationsController < ApplicationController
     else
       render("conversations/new.html.erb")
     end
+=end
   end
+
 
   def edit
     @conversation = Conversation.find(params[:id])

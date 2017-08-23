@@ -4,5 +4,5 @@ class Conversation < ApplicationRecord
     
     has_one :connection
     
-    validates :members, :presence => true, :uniqueness => { :scope => :members }
+    #validates :members, :presence => true, :uniqueness => { :scope => :members }
 end
