@@ -2,21 +2,6 @@ class ConnectionsController < ApplicationController
   def index
     @connections =  Connection.where(:owner_id => current_user.id)
     
-=begin
-    @connections.each do |connection|
-      
-    @members = [current_user.id, connection.added.id]  
-           conversation_id = () 
-           Conversation.all.each do |c| 
-             d = c.members.uniq.map{|i| i[:id]} 
-             if @members.sort == d.sort 
-               break 
-             end 
-             conversation_id = c.id 
-             return conversation_id 
-           end 
-    end       
-=end
 
     render("connections/index.html.erb")
   end

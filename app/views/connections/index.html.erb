@@ -35,7 +35,7 @@
           <td>
             <a href="/connections/<%= connection.id %>" class="btn btn-primary">Details</a>
             <a href="/conversations/new" class="btn btn-success">New Message</a>
-            <a href="/delete_conversation/<%= connection.id %>" class="btn btn-danger" rel="nofollow">Delete Connection?</a>
+            <a href="/delete_connection/<%= connection.id %>" class="btn btn-danger" rel="nofollow">Delete Connection?</a>
           </td>
         <% else %>
           <% a=Conversation.find(conversation_id[0]).messages.last %>
@@ -44,7 +44,7 @@
           <td>
             <a href="/connections/<%= connection.id %>" class="btn btn-primary">Details</a>
             <a href="/conversations/<%= conversation_id[0]%>" class="btn btn-success">New Message</a>
-            <a href="/delete_conversation/<%= connection.id %>" class="btn btn-danger" rel="nofollow">Delete Connection?</a>
+            <a href="/delete_connection/<%= connection.id %>" class="btn btn-danger" rel="nofollow">Delete Connection?</a>
           </td>
         <% end %>
         
