@@ -1,6 +1,6 @@
 class ConnectionsController < ApplicationController
   def index
-    @connections = Connection.where(:owner_id => current_user.id)
+    @connections =  Connection.where(:owner_id => current_user.id)
     
 =begin
     @connections.each do |connection|
